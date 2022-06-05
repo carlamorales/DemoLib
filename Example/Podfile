@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'DemoLib_Example' do
+  pod 'DemoLib', :path => '../'
+
+  target 'DemoLib_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
