@@ -1,0 +1,28 @@
+{
+  "name": "DemoLib",
+  "version": "0.1.0",
+  "summary": "A short description of DemoLib.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/carlamorales/DemoLib",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "carlamorales": "carlamoralespacheco@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/carlamorales/DemoLib.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "DemoLib/Classes/**/*",
+  "resource_bundles": {
+    "DemoLib": [
+      "DemoLib/Assets/dog.png",
+      "DemoLib/Assets/puppy.png"
+    ]
+  }
+}

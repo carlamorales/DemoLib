@@ -1,0 +1,16 @@
+PODS:
+  - DemoLib (0.1.0)
+
+DEPENDENCIES:
+  - DemoLib (from `../`)
+
+EXTERNAL SOURCES:
+  DemoLib:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DemoLib: 150c57ceac59415953bbbaba06d9891a2e281c0a
+
+PODFILE CHECKSUM: 4a3687d71d5afee9ed9b2a839d56a0d9966cda56
+
+COCOAPODS: 1.11.3
