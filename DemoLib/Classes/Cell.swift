@@ -20,16 +20,23 @@ public class Cell: UITableViewCell {
         contentView.addSubview(characterPictureImageView)
         contentView.addSubview(expandAndContractCellButton)
         
-        characterNameLabel.text = "Nombre"
-        characterSpeciesLabel.text = "Especie"
-        characterStatusLabel.text = "Estatus"
-        
         let frameworkBundle = Bundle(for: Cell.self)
         let path = frameworkBundle.path(forResource: "DemoLib", ofType: "bundle")
         let demoLibBundle = Bundle(url: URL(fileURLWithPath: path!))
-        
         characterPictureImageView.image = UIImage(named: "puppy", in: demoLibBundle, compatibleWith: nil)
-        //characterPictureImageView.downloaded(from: character?.image ?? "")
+    }
+    
+    public func setCellValues(name: String, species: String, status: String, image: String) {
+        let url = URL(string: image)
+        characterPictureImageView.downloaded(from: url ?? URL(fileURLWithPath: "image"))
+        characterNameLabel.text = name
+        characterSpeciesLabel.text = species
+        characterStatusLabel.text = status
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        characterPictureImageView.image = UIImage(named: "puppy")
     }
     
     private func prepareCellStyles() {
@@ -80,8 +87,30 @@ public class Cell: UITableViewCell {
     }
 }
 
-//        let frameworkBundle = Bundle(for: Cell.self)
-//        let path = frameworkBundle.path(forResource: "DemoLib", ofType: "bundle")
-//        let demoLibBundle = Bundle(url: URL(fileURLWithPath: path!))
-//        let dogImage = UIImage(named: "dog", in: demoLibBundle, compatibleWith: nil)
-//        print(dogImage)
+let nsCache = NSCache<NSString, UIImage>()
+
+extension UIImageView {
+    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
+        contentMode = mode
+        if let image = nsCache.object(forKey: url.absoluteString as NSString) {
+            self.image = image
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data,
+                  let image = UIImage(data: data) else {
+                return
+            }
+            nsCache.setObject(image, forKey: url.absoluteString as NSString)
+            DispatchQueue.main.async() { [weak self] in
+                self?.image = image
+            }
+        }.resume()
+    }
+    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
+        guard let url = URL(string: link) else {
+            return
+        }
+        downloaded(from: url, contentMode: mode)
+    }
+}
