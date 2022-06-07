@@ -21,7 +21,7 @@
   "source_files": "DemoLib/Classes/**/*",
   "resource_bundles": {
     "DemoLib": [
-      "DemoLib/Assets/dog.png",
+      "DemoLib/Assets/Assets.xcassets",
       "DemoLib/Assets/puppy.png"
     ]
   }

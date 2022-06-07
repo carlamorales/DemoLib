@@ -27,8 +27,9 @@ public class Cell: UITableViewCell {
     }
     
     public func setCellValues(name: String, species: String, status: String, image: String) {
-        let url = URL(string: image)
-        characterPictureImageView.downloaded(from: url ?? URL(fileURLWithPath: "image"))
+        if let url = URL(string: image) {
+            characterPictureImageView.downloaded(from: url)
+        }
         characterNameLabel.text = name
         characterSpeciesLabel.text = species
         characterStatusLabel.text = status

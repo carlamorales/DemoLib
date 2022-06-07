@@ -56,8 +56,8 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "1") as! Cell
         let cellContent = charactersArray[indexPath.row]
-        cell.setCellValues(name: cellContent.name, species: cellContent.species, status: cellContent.status, image: cellContent.image)
         cell.prepare()
+        cell.setCellValues(name: cellContent.name, species: cellContent.species, status: cellContent.status, image: cellContent.image)
         return cell
     }
 }
