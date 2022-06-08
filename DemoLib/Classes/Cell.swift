@@ -11,7 +11,7 @@ public class Cell: UITableViewCell {
     private let characterSpeciesLabel = UILabel()
     private let characterStatusLabel = UILabel()
     private let characterPictureImageView = UIImageView()
-    let expandAndContractCellButton = UIButton()
+    public let expandAndContractCellButton = UIButton()
     
     private func prepareCell() {
         contentView.addSubview(characterNameLabel)
@@ -20,10 +20,11 @@ public class Cell: UITableViewCell {
         contentView.addSubview(characterPictureImageView)
         contentView.addSubview(expandAndContractCellButton)
         
-        let frameworkBundle = Bundle(for: Cell.self)
-        let path = frameworkBundle.path(forResource: "DemoLib", ofType: "bundle")
-        let demoLibBundle = Bundle(url: URL(fileURLWithPath: path!))
-        characterPictureImageView.image = UIImage(named: "puppy", in: demoLibBundle, compatibleWith: nil)
+//        let frameworkBundle = Bundle(for: Cell.self)
+//        let path = frameworkBundle.path(forResource: "DemoLib", ofType: "bundle")
+//        let demoLibBundle = Bundle(url: URL(fileURLWithPath: path!))
+//        characterPictureImageView.image = UIImage(named: "puppy", in: demoLibBundle, compatibleWith: nil)
+        characterPictureImageView.image = ImageHelper.image(named: "puppy")
     }
     
     public func setCellValues(name: String, species: String, status: String, image: String) {
@@ -37,7 +38,8 @@ public class Cell: UITableViewCell {
     
     public override func prepareForReuse() {
         super.prepareForReuse()
-        characterPictureImageView.image = UIImage(named: "puppy")
+        characterPictureImageView.image = ImageHelper.image(named: "puppy")
+        //characterPictureImageView.image = UIImage(named: "puppy")
     }
     
     private func prepareCellStyles() {
