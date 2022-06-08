@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     var table = UITableView()
     var charactersArray: [Character] = [Character(identifier: 0, name: "Placeholder text", status: "Placeholder text", species: "Placeholder text", image: "Placeholder text")]
     
+    var selectedIndex: IndexPath = IndexPath(row: 0, section: 0)
+    var shouldCellBeExtended = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,12 +61,28 @@ extension ViewController: UITableViewDataSource {
         let cellContent = charactersArray[indexPath.row]
         cell.prepare()
         cell.setCellValues(name: cellContent.name, species: cellContent.species, status: cellContent.status, image: cellContent.image)
+        
+        cell.expandAndContractCellButton.addTarget(self, action: #selector(expandAndContractCell(sender:)), for: .touchUpInside)
+        cell.expandAndContractCellButton.tag = indexPath.row
+        
         return cell
+        
+    }
+    
+    @objc func expandAndContractCell(sender: UIButton) {
+        selectedIndex = IndexPath(row: sender.tag, section: 0)
+        shouldCellBeExtended.toggle()
+        table.beginUpdates()
+        table.reloadRows(at: [selectedIndex], with: .automatic)
+        table.endUpdates()
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension ViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        if shouldCellBeExtended && selectedIndex == indexPath {
+            return 150
+        }
+        return 100
     }
 }
